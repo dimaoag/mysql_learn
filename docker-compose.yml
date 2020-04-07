@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+    mysql:
+        container_name: mysql_learn
+        image: mysql:latest
+        volumes:
+            - ./storage/mysql:/var/lib/mysql
+        environment:
+            - "MYSQL_ROOT_PASSWORD=secret"
+            - "MYSQL_USER=app"
+            - "MYSQL_PASSWORD=secret"
+            - "MYSQL_DATABASE=app"
+        ports:
+            - "33033:3306"
