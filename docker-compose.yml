@@ -12,3 +12,9 @@ services:
             - "MYSQL_DATABASE=app"
         ports:
             - "33033:3306"
+        networks:
+            - mysql-learn-network
+
+networks:
+    mysql-learn-network:
+        driver: bridge
