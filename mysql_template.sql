@@ -65,6 +65,142 @@ SELECT * FROM sql_store.customers WHERE last_name REGEXP '[a-h]e';
 SELECT * FROM sql_store.customers WHERE phone IS NULL;
 SELECT * FROM sql_store.customers WHERE phone IS NOT NULL;
 
+# ORDER BY
+SELECT * FROM sql_store.customers ORDER BY first_name;
+SELECT * FROM sql_store.customers ORDER BY first_name DESC;
+SELECT * FROM sql_store.customers ORDER BY state, first_name;
+SELECT * FROM sql_store.customers ORDER BY state DESC, first_name;
+SELECT *, quantity * unit_price AS total_price FROM sql_store.order_items WHERE order_id = 2 ORDER BY total_price DESC;
+
+# LIMIT
+SELECT * FROM sql_store.customers LIMIT 2;
+SELECT * FROM sql_store.customers LIMIT 2 OFFSET 2;
+
+
+# INNER JOIN
+USE sql_store;
+SELECT order_id, first_name, last_name
+FROM sql_store.orders o
+JOIN sql_store.customers c
+    ON o.customer_id = c.customer_id;
+
+
+SELECT order_id, o.product_id, quantity, o.unit_price
+FROM sql_store.order_items o
+JOIN sql_store.products p
+    ON o.product_id = p.product_id;
+
+# SELF JOIN
+SELECT
+    e.employee_id,
+    e.first_name employee,
+    m.first_name manager
+FROM sql_hr.employees e
+JOIN sql_hr.employees m
+    ON e.reports_to = m.employee_id;
+
+# MULTIPLE TABLES JOIN
+SELECT
+    o.order_id,
+    o.order_date,
+    c.first_name,
+    c.last_name,
+    s.name status
+FROM sql_store.orders o
+JOIN sql_store.customers c
+    ON o.customer_id = c.customer_id
+JOIN sql_store.order_statuses s
+    ON o.status = s.order_status_id;
+
+
+SELECT
+    p.date,
+       p.invoice_id,
+       p.amount,
+       c.name,
+       pm.name
+FROM sql_invoicing.payments p
+JOIN sql_invoicing.clients c
+    ON p.client_id = p.client_id
+JOIN sql_invoicing.payment_methods pm
+    ON p.payment_method = pm.payment_method_id;
+
+
+# COMPOUND JOINS CONDITIONS (pair primary key)
+SELECT
+    *
+FROM sql_store.order_items oi
+JOIN sql_store.order_item_notes oin
+    ON oi.order_id = oin.order_Id
+    AND oi.product_id = oin.product_id;
+
+
+# implicit join syntax
+SELECT
+    *
+FROM sql_store.orders o, sql_store.customers c
+WHERE o.customer_id = c.customer_id;
+
+
+# LEFT JOIN
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM sql_store.customers c
+JOIN sql_store.orders o
+    ON c.customer_id = o.customer_id
+ORDER BY c.customer_id;
+
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id
+FROM sql_store.customers c
+LEFT JOIN sql_store.orders o
+    ON c.customer_id = o.customer_id
+ORDER BY c.customer_id;
+
+SELECT
+    p.product_id,
+    p.name,
+    oi.quantity
+FROM products p
+LEFT JOIN sql_store.order_items oi
+    ON p.product_id = oi.product_id;
+
+
+# joins between multiple tables
+SELECT
+    c.customer_id,
+    c.first_name,
+    o.order_id,
+    sh.name shipper
+FROM sql_store.customers c
+LEFT JOIN sql_store.orders o
+    ON c.customer_id = o.customer_id
+LEFT JOIN sql_store.shippers sh
+    ON o.shipper_id = sh.shipper_id
+ORDER BY c.customer_id;
+
+SELECT
+    o.order_id,
+    o.order_date,
+    c.first_name customer,
+    sh.name shipper,
+    s.name status
+FROM sql_store.orders o
+JOIN sql_store.customers c
+    ON o.customer_id = c.customer_id
+LEFT JOIN shippers sh
+    ON o.shipper_id = sh.shipper_id
+JOIN sql_store.order_statuses s
+    ON o.status = s.order_status_id;
+
+
+
+
+
 
 
 
