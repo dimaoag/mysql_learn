@@ -138,7 +138,7 @@ CREATE TABLE `employees` (
   `salary` int(11) NOT NULL,
   `commission_pct` int(11) NULL,
   `manager_id` int(11) DEFAULT NULL,
-  `department_id` int(11) NOT NULL,
+  `department_id` int(11) NULL,
   PRIMARY KEY (`employee_id`),
   KEY `fk_employees_department_idx` (`department_id`),
   KEY `fk_employees_employees_idx` (`manager_id`),
@@ -155,6 +155,7 @@ INSERT INTO `employees` VALUES (106,'North','de Clerc','VP Product Management',1
 INSERT INTO `employees` VALUES (107,'Elladine','Rising','Social Worker',96767,'2007-02-07','SA REP',4200,null,103,60);
 INSERT INTO `employees` VALUES (108,'Nisse','Voysey','Financial Advisor',52832,'2002-08-17','FI MGR',12008,null,101,100);
 INSERT INTO `employees` VALUES (109,'Guthrey','Iacopetti','Office Assistant I',117690,'2002-08-16','FI ACCOUNT',9000,null,108,100);
+INSERT INTO `employees` VALUES (110,'Msfuthrey','UUIacopetti','OKjfOffice Assistant I',3117690,'2004-08-16','FI ACCOUNT',9000,null,108,null);
 
 
 

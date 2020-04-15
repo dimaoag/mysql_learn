@@ -1,12 +1,30 @@
+/*
+ Data types
+ int - 1 3 -200
+ number(p,s)  p - общее максимальное количество цифр; s - дробная часть; number(7,2)=12345,67; number(2)=54;
+            максимальное к-во цифр на целую часть = p - s;
+
+ char(length) - old type - fixed length
+ varchar(length) - flexible length
+ date - 11-Sep-19 23:17:18
+ timestamp(f) f - length mili seconds
+ NULL
+ */
 SHOW databases;
 
-USE sql_store;
+DESCRIBE sql_hr.countries;  # review schema.table_name
+DESC sql_hr.countries;  # review schema.table_name
+
 
 SELECT first_name, last_name, points p, points + 10 AS sum FROM sql_store.customers;
 
-SELECT DISTINCT state FROM sql_store.customers; # unique values
+SELECT DISTINCT state, first_name FROM sql_store.customers; # unique values
 
 SELECT name, unit_price, unit_price * 1.1 AS new_price FROM sql_store.products;
+
+SELECT start_date, end_date, DATEDIFF(end_date, start_date) AS working_days FROM sql_hr.job_history; # diff
+SELECT start_date, DATE_SUB(start_date, INTERVAL 7 DAY ) AS next_week FROM sql_hr.job_history; # minus
+SELECT start_date, DATE_ADD(start_date, INTERVAL 7 DAY ) AS next_week FROM sql_hr.job_history; # plus
 
 # // Operators
 # >
