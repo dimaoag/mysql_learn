@@ -26,6 +26,13 @@ SELECT start_date, end_date, DATEDIFF(end_date, start_date) AS working_days FROM
 SELECT start_date, DATE_SUB(start_date, INTERVAL 7 DAY ) AS next_week FROM sql_hr.job_history; # minus
 SELECT start_date, DATE_ADD(start_date, INTERVAL 7 DAY ) AS next_week FROM sql_hr.job_history; # plus
 
+SELECT CONCAT(first_name, ' ',last_name) AS full_name FROM sql_hr.employees;
+SELECT CONCAT(first_name, ' ',last_name) full_name FROM sql_hr.employees;
+SELECT CONCAT(first_name, ' ',last_name) "Full name" FROM sql_hr.employees;
+SELECT 'It''s my life' FROM sql_hr.employees;
+
+
+
 # // Operators
 # >
 # >=
@@ -35,6 +42,12 @@ SELECT start_date, DATE_ADD(start_date, INTERVAL 7 DAY ) AS next_week FROM sql_h
 # !=
 # <>
 # <>
+SELECT * FROM sql_hr.employees WHERE employee_id = manager_id + 1;
+
+SELECT *
+FROM sql_hr.employees
+WHERE CONCAT('Dr ', first_name, ' ' , last_name) = 'Dr Mindy Crissil';
+
 SELECT * FROM sql_store.customers WHERE state <> 'va';  # all without state != 'va'
 
 # >
