@@ -128,6 +128,15 @@ GROUP BY job_id, year
 ORDER BY year;
 
 
+# HAVING only groups functions
+SELECT department_id, COUNT(*) count
+FROM sql_hr.employees
+WHERE LENGTH(first_name) > 5
+GROUP BY department_id
+HAVING count >= 2
+ORDER BY count DESC;
+
+
 # LIMIT
 SELECT * FROM sql_store.customers LIMIT 2;
 SELECT * FROM sql_store.customers LIMIT 2 OFFSET 2;
