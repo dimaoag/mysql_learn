@@ -110,7 +110,22 @@ SELECT * FROM sql_store.customers ORDER BY state, first_name;
 SELECT * FROM sql_store.customers ORDER BY state DESC, first_name;
 SELECT *, quantity * unit_price AS total_price FROM sql_store.order_items WHERE order_id = 2 ORDER BY total_price DESC;
 
-SELECT first_name, salary, manager_id FROM sql_hr.employees ORDER BY salary;
+# GROUP BY  Aggregations functions COUNT(), SUM(), AVG(), MAX(), MIN(),
+SELECT department_id, COUNT(*) count, MIN(salary) min_salary
+FROM sql_hr.employees
+GROUP BY department_id
+ORDER BY count DESC;
+
+SELECT department_id, job_id, COUNT(*) count
+FROM sql_hr.employees
+GROUP BY department_id, job_id
+ORDER BY department_id;
+
+SELECT job_id, DATE_FORMAT(hire_date, '%Y') year, SUM(salary) sum_salary
+FROM sql_hr.employees
+WHERE job_id IN ('AD VP', 'SA REP', 'FI ACCOUNT')
+GROUP BY job_id, year
+ORDER BY year;
 
 
 # LIMIT
