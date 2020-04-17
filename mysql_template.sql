@@ -31,17 +31,19 @@ SELECT CONCAT(first_name, ' ',last_name) full_name FROM sql_hr.employees;
 SELECT CONCAT(first_name, ' ',last_name) "Full name" FROM sql_hr.employees;
 SELECT 'It''s my life' FROM sql_hr.employees;
 
-
-
-# // Operators
-# >
-# >=
-# <
-# <=
-# =
-# !=
-# <>
-# <>
+/*
+    Priority Operators
+    ()
+    * /
+    + -
+    = < > >= <=
+    [NOT] LIKE, IS [NOT] NULL, [NOT] IN
+    [NOT] BETWEEN
+    != <>
+    NOT
+    AND
+    OR
+ */
 SELECT * FROM sql_hr.employees WHERE employee_id = manager_id + 1;
 
 SELECT *
@@ -70,12 +72,17 @@ SELECT * FROM sql_store.customers WHERE state NOT IN ('va', 'fl', 'ga');
 # BETWEEN
 SELECT * FROM sql_store.customers WHERE points BETWEEN 1000 AND 2000;
 
+# IS NULL
+SELECT * FROM sql_hr.employees WHERE manager_id IS NULL;
+SELECT * FROM sql_hr.employees WHERE manager_id IS NOT NULL;
+
 # LIKE
 SELECT * FROM sql_store.customers WHERE first_name LIKE 'b%';
 SELECT * FROM sql_store.customers WHERE last_name LIKE '%y';
 SELECT * FROM sql_store.customers WHERE last_name LIKE '%caf%';
 SELECT * FROM sql_store.customers WHERE last_name LIKE '_____y';
 SELECT * FROM sql_store.customers WHERE last_name LIKE 'b____y';
+SELECT * FROM sql_store.customers WHERE last_name LIKE 'na$\%' ESCAPE '$'; # first char after '$' will be single char, not special
 SELECT * FROM sql_store.customers WHERE address LIKE '%trail%' OR address LIKE '%avenue%';
 
 # REGEXP
@@ -102,6 +109,9 @@ SELECT * FROM sql_store.customers ORDER BY first_name DESC;
 SELECT * FROM sql_store.customers ORDER BY state, first_name;
 SELECT * FROM sql_store.customers ORDER BY state DESC, first_name;
 SELECT *, quantity * unit_price AS total_price FROM sql_store.order_items WHERE order_id = 2 ORDER BY total_price DESC;
+
+SELECT first_name, salary, manager_id FROM sql_hr.employees ORDER BY salary;
+
 
 # LIMIT
 SELECT * FROM sql_store.customers LIMIT 2;
