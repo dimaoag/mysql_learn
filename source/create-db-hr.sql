@@ -110,7 +110,7 @@ INSERT INTO `job_history` VALUES (105,'2002-07-01','2006-12-31','AC ACCOUNT',90)
 CREATE TABLE `departments` (
   `department_id` int(11) NOT NULL,
   `department_name` varchar(50) NOT NULL,
-  `manager_id` int(11) NOT NULL,
+  `manager_id` int(11) DEFAULT NULL,
   `location_id` int(11) NOT NULL,
   PRIMARY KEY (`department_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -125,6 +125,7 @@ INSERT INTO `departments` VALUES (80,'Sales',107,1500);
 INSERT INTO `departments` VALUES (90,'Executive',108,1700);
 INSERT INTO `departments` VALUES (100,'Finance',109,1700);
 INSERT INTO `departments` VALUES (110,'Accounting',109,1700);
+INSERT INTO `departments` VALUES (120,'IT Support',null,1700);
 
 
 CREATE TABLE `employees` (

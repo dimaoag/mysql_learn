@@ -200,6 +200,13 @@ JOIN sql_hr.employees e2
 ON e1.manager_id = e2.employee_id;
 
 
+# LEFT OUTER JOIN
+SELECT first_name, last_name, salary, department_name
+FROM sql_hr.employees e
+LEFT JOIN sql_hr.departments d
+ON e.department_id = d.department_id;
+
+
 # COMPOUND JOINS CONDITIONS (pair primary key)
 SELECT *
 FROM sql_store.order_items oi
