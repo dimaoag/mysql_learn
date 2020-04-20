@@ -142,29 +142,30 @@ SELECT * FROM sql_store.customers LIMIT 2;
 SELECT * FROM sql_store.customers LIMIT 2 OFFSET 2;
 
 
-# INNER JOIN
-USE sql_store;
-SELECT order_id, first_name, last_name
-FROM sql_store.orders o
-JOIN sql_store.customers c
-    ON o.customer_id = c.customer_id;
+# NATURAL JOIN - the same column name in two tables
+SELECT c.country_id, c.country_name, r.region_name
+FROM sql_hr.regions r
+NATURAL JOIN sql_hr.countries c;
 
-
-SELECT order_id, o.product_id, quantity, o.unit_price
-FROM sql_store.order_items o
-JOIN sql_store.products p
-    ON o.product_id = p.product_id;
-
-# SELF JOIN
-SELECT
-    e.employee_id,
-    e.first_name employee,
-    m.first_name manager
+# JOIN USING - using union columns with the same column name
+SELECT e.first_name, e.last_name, d.department_name, d.department_id
 FROM sql_hr.employees e
-JOIN sql_hr.employees m
-    ON e.reports_to = m.employee_id;
+JOIN sql_hr.departments d USING (department_id);
 
-# MULTIPLE TABLES JOIN
+# JOIN ON - using union columns with the different column name
+SELECT first_name, last_name, h.job_id, start_date, end_date
+FROM sql_hr.employees e
+JOIN sql_hr.job_history h
+ON e.employee_id = h.employee_id;
+
+# JOIN 3 tables
+SELECT first_name, last_name, jh.job_id, start_date, end_date, department_name
+FROM sql_hr.employees e
+JOIN sql_hr.job_history jh
+ON e.employee_id = jh.employee_id
+JOIN departments d
+ON jh.department_id = d.department_id;
+
 SELECT
     o.order_id,
     o.order_date,
@@ -173,38 +174,38 @@ SELECT
     s.name status
 FROM sql_store.orders o
 JOIN sql_store.customers c
-    ON o.customer_id = c.customer_id
+ON o.customer_id = c.customer_id
 JOIN sql_store.order_statuses s
-    ON o.status = s.order_status_id;
+ON o.status = s.order_status_id;
+
 
 
 SELECT
     p.date,
-       p.invoice_id,
-       p.amount,
-       c.name,
-       pm.name
+    p.invoice_id,
+    p.amount,
+    c.name,
+    pm.name
 FROM sql_invoicing.payments p
 JOIN sql_invoicing.clients c
-    ON p.client_id = p.client_id
+ON p.client_id = p.client_id
 JOIN sql_invoicing.payment_methods pm
-    ON p.payment_method = pm.payment_method_id;
+ON p.payment_method = pm.payment_method_id;
+
+
+# SELF JOIN
+SELECT e1.first_name first_name, e1.last_name last_name, e2.first_name manager
+FROM sql_hr.employees e1
+JOIN sql_hr.employees e2
+ON e1.manager_id = e2.employee_id;
 
 
 # COMPOUND JOINS CONDITIONS (pair primary key)
-SELECT
-    *
+SELECT *
 FROM sql_store.order_items oi
 JOIN sql_store.order_item_notes oin
-    ON oi.order_id = oin.order_Id
-    AND oi.product_id = oin.product_id;
-
-
-# implicit join syntax
-SELECT
-    *
-FROM sql_store.orders o, sql_store.customers c
-WHERE o.customer_id = c.customer_id;
+ON oi.order_id = oin.order_Id
+AND oi.product_id = oin.product_id;
 
 
 # LEFT JOIN
