@@ -206,6 +206,49 @@ FROM sql_hr.employees e
 LEFT JOIN sql_hr.departments d
 ON e.department_id = d.department_id;
 
+# RIGHT OUTER JOIN
+SELECT first_name, last_name, salary, department_name
+FROM sql_hr.employees e
+RIGHT JOIN sql_hr.departments d
+ON e.department_id = d.department_id;
+
+# FULL OUTER JOIN in mysql not exist.
+# this is imitation full outer join, should be the same column name in select list
+SELECT first_name, last_name, salary, department_name, location_id
+FROM sql_hr.employees e
+LEFT JOIN sql_hr.departments d
+ON e.department_id = d.department_id
+UNION
+SELECT first_name, last_name, salary, department_name, location_id
+FROM sql_hr.employees e
+RIGHT JOIN sql_hr.departments d
+ON e.department_id = d.department_id;
+
+
+# CROSS JOIN (перекресное обединение) каждая строка с одной таблици обединяется с каждой строкой другой таблици
+SELECT *
+FROM sql_hr.countries
+CROSS JOIN sql_hr.regions;
+
+
+# Tasks after joins
+
+# 1. Count employees in each of regions
+SELECT region_name, COUNT(*)
+FROM sql_hr.employees e
+JOIN sql_hr.departments d ON e.department_id = d.department_id
+JOIN sql_hr.locations l ON d.location_id = l.location_id
+JOIN sql_hr.countries c ON l.country_id = c.country_id
+JOIN sql_hr.regions r ON c.region_id = r.region_id
+GROUP BY region_name;
+
+SELECT m.first_name, COUNT(*)
+FROM sql_hr.employees e
+JOIN sql_hr.employees m ON e.manager_id = m.employee_id
+GROUP BY m.first_name
+HAVING COUNT(*) >= 2;
+
+
 
 # COMPOUND JOINS CONDITIONS (pair primary key)
 SELECT *
