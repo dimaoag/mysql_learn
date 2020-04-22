@@ -257,71 +257,65 @@ JOIN sql_store.order_item_notes oin
 ON oi.order_id = oin.order_Id
 AND oi.product_id = oin.product_id;
 
-
-# LEFT JOIN
-SELECT
-    c.customer_id,
-    c.first_name,
-    o.order_id
-FROM sql_store.customers c
-JOIN sql_store.orders o
-    ON c.customer_id = o.customer_id
-ORDER BY c.customer_id;
-
-SELECT
-    c.customer_id,
-    c.first_name,
-    o.order_id
-FROM sql_store.customers c
-LEFT JOIN sql_store.orders o
-    ON c.customer_id = o.customer_id
-ORDER BY c.customer_id;
-
-SELECT
-    p.product_id,
-    p.name,
-    oi.quantity
-FROM products p
-LEFT JOIN sql_store.order_items oi
-    ON p.product_id = oi.product_id;
-
-
-# joins between multiple tables
-SELECT
-    c.customer_id,
-    c.first_name,
-    o.order_id,
-    sh.name shipper
-FROM sql_store.customers c
-LEFT JOIN sql_store.orders o
-    ON c.customer_id = o.customer_id
-LEFT JOIN sql_store.shippers sh
-    ON o.shipper_id = sh.shipper_id
-ORDER BY c.customer_id;
-
-SELECT
-    o.order_id,
-    o.order_date,
-    c.first_name customer,
-    sh.name shipper,
-    s.name status
-FROM sql_store.orders o
-JOIN sql_store.customers c
-    ON o.customer_id = c.customer_id
-LEFT JOIN shippers sh
-    ON o.shipper_id = sh.shipper_id
-JOIN sql_store.order_statuses s
-    ON o.status = s.order_status_id;
+# Sub queries return single raw
+SELECT first_name, last_name, salary
+FROM sql_hr.employees e
+WHERE salary > (SELECT AVG(salary) FROM employees e2);
 
 
 
+# get all managers
+SELECT first_name, last_name, salary
+FROM sql_hr.employees e
+WHERE e.employee_id IN (SELECT e2.manager_id FROM employees e2);
+
+# min and max salary in each of departments
+SELECT department_name, MIN(salary), MAX(salary)
+FROM (
+    SELECT salary, department_name
+    FROM employees e
+    JOIN departments d ON e.department_id = d.department_id
+    ) as sdn
+GROUP BY department_name;
+
+# get all employees where salary > avg salary in him department
+SELECT e1.first_name, e1.last_name, e1.salary, d.department_name,
+       (
+           SELECT AVG(e2.salary)
+           FROM employees e2
+           WHERE e2.department_id = e1.department_id
+       ) avg_salary
+FROM sql_hr.employees e1
+JOIN departments d on e1.department_id = d.department_id
+WHERE e1.salary > (
+    SELECT AVG(e2.salary)
+    FROM employees e2
+    WHERE e2.department_id = e1.department_id
+    );
 
 
+# all employees who work in some country
+SELECT first_name, last_name, salary
+FROM sql_hr.employees e
+WHERE department_id IN (
+    SELECT department_id FROM departments WHERE location_id IN (
+        SELECT location_id FROM locations WHERE country_id = (
+            SELECT country_id FROM countries WHERE country_name = 'United States of America'
+        )
+    )
+);
 
 
-
-
-
-
-
-
+# Получить город/города, где сотрудники в сумме зарабатывают меньше всего.
+SELECT city, SUM(salary) sum_salary
+FROM employees e
+JOIN departments d ON e.department_id = d.department_id
+JOIN locations l ON d.location_id = l.location_id
+GROUP BY city
+HAVING sum_salary = (
+    SELECT MIN(sum_salary)
+    FROM (SELECT SUM(salary) sum_salary
+    FROM employees e
+    JOIN departments d ON e.department_id = d.department_id
+    JOIN locations l ON d.location_id = l.location_id
+    GROUP BY city) as e2d2l2ss);
