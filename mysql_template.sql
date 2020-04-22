@@ -319,3 +319,40 @@ HAVING sum_salary = (
     JOIN departments d ON e.department_id = d.department_id
     JOIN locations l ON d.location_id = l.location_id
     GROUP BY city) as e2d2l2ss);
+
+
+
+# INSERT
+INSERT INTO countries VALUES ('SW', 'Sweden', 1);
+INSERT INTO countries (country_id, country_name, region_id) VALUES ('NR', 'Norway', 1);
+INSERT INTO employees (employee_id, last_name, email, phone_number, hire_date, job_id)
+VALUES (111, UCASE('alex'), UPPER('alex'), 122313, DATE('2002-03-15'), 'FI MGR');
+
+
+# insert with a sub query
+CREATE TABLE sql_hr.new_emps
+(
+    emp_id integer,
+    name varchar(20),
+    start_date date,
+    job varchar(10)
+);
+
+INSERT INTO sql_hr.new_emps (emp_id, name, start_date)
+(
+    SELECT employee_id, first_name, hire_date
+    FROM employees
+    WHERE employee_id > 105
+);
+
+
+
+
+
+
+
+
+
+
+
+

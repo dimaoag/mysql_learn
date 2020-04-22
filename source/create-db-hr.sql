@@ -12,10 +12,11 @@ INSERT INTO `regions` VALUES (2,'Americas');
 INSERT INTO `regions` VALUES (3,'Asia');
 INSERT INTO `regions` VALUES (4,'Middle East and Africa');
 
+DROP TABLE IF EXISTS `countries`;
 CREATE TABLE `countries` (
   `country_id` varchar(2) NOT NULL,
-  `country_name` varchar(50) NOT NULL,
-  `region_id` int(11) NOT NULL,
+  `country_name` varchar(50) NULL,
+  `region_id` int(11) NULL,
   PRIMARY KEY (`country_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 INSERT INTO `countries` VALUES ('AR','Argentina', 2);
@@ -128,15 +129,16 @@ INSERT INTO `departments` VALUES (110,'Accounting',109,1700);
 INSERT INTO `departments` VALUES (120,'IT Support',null,1700);
 
 
+DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
   `employee_id` int(11) NOT NULL,
-  `first_name` varchar(50) NOT NULL,
+  `first_name` varchar(50) NULL,
   `last_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone_number` int(11) NOT NULL,
   `hire_date` date NULL,
   `job_id` varchar(50) NOT NULL,
-  `salary` int(11) NOT NULL,
+  `salary` int(11) NULL,
   `commission_pct` int(11) NULL,
   `manager_id` int(11) DEFAULT NULL,
   `department_id` int(11) NULL,
