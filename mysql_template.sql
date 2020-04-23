@@ -415,6 +415,27 @@ DROP TABLE students;
 
 
 
+# CONSTRAINT UNIQUE
+
+CREATE TABLE sql_hr.faculties (
+     id integer PRIMARY KEY,
+     name varchar(25)
+);
+
+CREATE TABLE sql_hr.students (
+     id integer PRIMARY KEY AUTO_INCREMENT,
+     name varchar(25) UNIQUE,
+     course numeric NOT NULL,
+     faculty_id integer,
+     avg_score numeric(5,2),
+     start_date date,
+     scholarship integer,
+     CONSTRAINT id_name_unique UNIQUE(id, name),
+     FOREIGN KEY (faculty_id) REFERENCES faculties (id) ON DELETE CASCADE
+);
+
+
+
 
 
 
