@@ -379,6 +379,46 @@ DELETE FROM new_emps WHERE emp_id = 108;
 ROLLBACK;
 
 
+# CREATE TABLE
+CREATE TABLE sql_hr.students (
+    student_id integer,
+    name varchar(255),
+    start_date date DEFAULT(CURRENT_DATE),
+    scholarship numeric(6,2),
+    avg_score numeric(4,2) DEFAULT 5
+);
+INSERT INTO students VALUES (1, 'Zaur', DATE('2004-10-25'), 1500.3, 7.8);
+INSERT INTO students VALUES (2, 'Ivan', DATE('2002-05-07'), 800.36, 8);
+INSERT INTO students (student_id, name, scholarship) VALUES (3, 'Nina', 750);
+
+# ALTER TABLE
+ALTER TABLE students
+ADD COLUMN course numeric DEFAULT(3) AFTER name;
+
+ALTER TABLE students
+MODIFY COLUMN avg_score numeric(5,3);
+
+ALTER TABLE students
+CHANGE COLUMN avg_score avg_score integer;
+
+ALTER TABLE students
+RENAME COLUMN avg_score TO avg;
+
+ALTER TABLE students
+DROP COLUMN scholarship;
+
+# TRUNCATE TABLE
+TRUNCATE TABLE students;
+
+# DROP TABLE
+DROP TABLE students;
+
+
+
+
+
+
+
 
 
 
