@@ -346,6 +346,25 @@ INSERT INTO sql_hr.new_emps (emp_id, name, start_date)
 );
 
 
+# UPDATE
+UPDATE employees SET salary = 17000 WHERE employee_id = 100;
+UPDATE employees SET salary = salary + 1000 WHERE employee_id > 105;
+UPDATE employees e,
+    (
+    SELECT CAST(AVG(e1.salary) AS UNSIGNED) value
+    FROM employees e1 WHERE e1.department_id IN (
+        SELECT d1.department_id FROM departments d1 WHERE d1.department_name = 'Executive'
+        )
+    ) AS avg_salary
+SET e.salary = avg_salary.value
+WHERE department_id IN (
+    SELECT department_id FROM departments WHERE department_name = 'Finance'
+);
+
+
+# DELETE
+DELETE FROM new_emps WHERE emp_id = 111;
+DELETE FROM new_emps WHERE emp_id IN (110);
 
 
 
