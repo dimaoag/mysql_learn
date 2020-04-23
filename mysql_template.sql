@@ -367,6 +367,18 @@ DELETE FROM new_emps WHERE emp_id = 111;
 DELETE FROM new_emps WHERE emp_id IN (110);
 
 
+# TRANSACTION
+START TRANSACTION;
+UPDATE employees SET salary = 17100 WHERE employee_id = 100;
+DELETE FROM new_emps WHERE emp_id = 109;
+COMMIT;
+
+BEGIN;
+UPDATE employees SET salary = 17000 WHERE employee_id = 100;
+DELETE FROM new_emps WHERE emp_id = 108;
+ROLLBACK;
+
+
 
 
 
