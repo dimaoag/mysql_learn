@@ -9,7 +9,7 @@ CREATE TABLE `products` (
   `quantity_in_stock` int(11) NOT NULL,
   `unit_price` decimal(4,2) NOT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 INSERT INTO `products` VALUES (1,'Foam Dinner Plate',70,1.21);
 INSERT INTO `products` VALUES (2,'Pork - Bacon,back Peameal',49,4.65);
 INSERT INTO `products` VALUES (3,'Lettuce - Romaine, Heart',38,3.35);
@@ -26,7 +26,7 @@ CREATE TABLE `shippers` (
   `shipper_id` smallint(6) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`shipper_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 INSERT INTO `shippers` VALUES (1,'Hettinger LLC');
 INSERT INTO `shippers` VALUES (2,'Schinner-Predovic');
 INSERT INTO `shippers` VALUES (3,'Satterfield LLC');
@@ -34,6 +34,7 @@ INSERT INTO `shippers` VALUES (4,'Mraz, Renner and Nolan');
 INSERT INTO `shippers` VALUES (5,'Waters, Mayert and Prohaska');
 
 
+USE sql_store;
 CREATE TABLE `customers` (
   `customer_id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) NOT NULL,
@@ -45,7 +46,7 @@ CREATE TABLE `customers` (
   `state` char(2) NOT NULL,
   `points` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 INSERT INTO `customers` VALUES (1,'Babara','MacCaffrey','1986-03-28','781-932-9754','0 Sage Terrace','Waltham','MA',2273);
 INSERT INTO `customers` VALUES (2,'Ines','Brushfield','1986-04-13','804-427-9456','14187 Commercial Trail','Hampton','VA',947);
 INSERT INTO `customers` VALUES (3,'Freddi','Boagey','1985-02-07','719-724-7869','251 Springs Junction','Colorado Springs','CO',2967);
@@ -62,7 +63,7 @@ CREATE TABLE `order_statuses` (
   `order_status_id` tinyint(4) NOT NULL,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`order_status_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `order_statuses` VALUES (1,'Processed');
 INSERT INTO `order_statuses` VALUES (2,'Shipped');
 INSERT INTO `order_statuses` VALUES (3,'Delivered');
@@ -83,7 +84,7 @@ CREATE TABLE `orders` (
   CONSTRAINT `fk_orders_customers` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_orders_order_statuses` FOREIGN KEY (`status`) REFERENCES `order_statuses` (`order_status_id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_orders_shippers` FOREIGN KEY (`shipper_id`) REFERENCES `shippers` (`shipper_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 INSERT INTO `orders` VALUES (1,6,'2019-01-30',1,NULL,NULL,NULL);
 INSERT INTO `orders` VALUES (2,7,'2018-08-02',2,NULL,'2018-08-03',4);
 INSERT INTO `orders` VALUES (3,8,'2017-12-01',1,NULL,NULL,NULL);
@@ -105,7 +106,7 @@ CREATE TABLE `order_items` (
   KEY `fk_order_items_products_idx` (`product_id`),
   CONSTRAINT `fk_order_items_orders` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON UPDATE CASCADE,
   CONSTRAINT `fk_order_items_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 INSERT INTO `order_items` VALUES (1,4,4,3.74);
 INSERT INTO `order_items` VALUES (2,1,2,9.10);
 INSERT INTO `order_items` VALUES (2,4,4,1.66);

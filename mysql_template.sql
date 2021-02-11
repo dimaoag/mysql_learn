@@ -242,11 +242,17 @@ JOIN sql_hr.countries c ON l.country_id = c.country_id
 JOIN sql_hr.regions r ON c.region_id = r.region_id
 GROUP BY region_name;
 
-SELECT m.first_name, COUNT(*)
+SELECT r.region_name, l.city, COUNT(c.country_id)
+FROM sql_hr.regions r
+LEFT JOIN sql_hr.countries c ON r.region_id = c.region_id
+LEFT JOIN sql_hr.locations l ON l.country_id = c.country_id
+GROUP BY r.region_name;
+
+
+SELECT m.first_name, MAX(e.hire_date) AS max_date
 FROM sql_hr.employees e
 JOIN sql_hr.employees m ON e.manager_id = m.employee_id
-GROUP BY m.first_name
-HAVING COUNT(*) >= 2;
+GROUP BY m.first_name;
 
 
 

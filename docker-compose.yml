@@ -2,7 +2,7 @@ version: "3.7"
 services:
     mysql:
         container_name: mysql_learn
-        image: mysql:latest
+        image: mysql:5.7
         volumes:
             - ./storage/mysql:/var/lib/mysql
         environment:
@@ -17,4 +17,4 @@ services:
 
 networks:
     mysql-learn-network:
-        driver: bridge
+        name: mysql-learn-network

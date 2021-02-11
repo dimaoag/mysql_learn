@@ -6,7 +6,7 @@ CREATE TABLE `regions` (
   `region_id` int(11) NOT NULL,
   `region_name` varchar(50) NOT NULL,
   PRIMARY KEY (`region_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `regions` VALUES (1,'Europe');
 INSERT INTO `regions` VALUES (2,'Americas');
 INSERT INTO `regions` VALUES (3,'Asia');
@@ -18,7 +18,7 @@ CREATE TABLE `countries` (
   `country_name` varchar(50) NULL,
   `region_id` int(11) NULL,
   PRIMARY KEY (`country_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `countries` VALUES ('AR','Argentina', 2);
 INSERT INTO `countries` VALUES ('AU','Australia', 3);
 INSERT INTO `countries` VALUES ('BE','Belgium', 1);
@@ -54,7 +54,7 @@ CREATE TABLE `locations` (
   `state_province` varchar(50) NULL,
   `country_id` varchar (2) NOT NULL,
   PRIMARY KEY (`location_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `locations` VALUES (1000,'1297 Via Cola di Rie', '00989', 'Roma', null, 'IT');
 INSERT INTO `locations` VALUES (1100,'93091 Cale della Testa', '10934', 'Venice', null, 'IT');
 INSERT INTO `locations` VALUES (1200,'2017 Shinguku ku', '1689', 'Tokyo', 'Tokyo', 'JP');
@@ -74,7 +74,7 @@ CREATE TABLE `jobs` (
   `min_salary` int(11) NOT NULL,
   `max_salary` int(11) NOT NULL,
   PRIMARY KEY (`job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `jobs` VALUES ('AD PRES','President',20080,40000);
 INSERT INTO `jobs` VALUES ('AD VP','Administration Vice President',15000,30000);
 INSERT INTO `jobs` VALUES ('AD ASST','Administration Assistant',3000,6000);
@@ -94,7 +94,7 @@ CREATE TABLE `job_history` (
   `end_date` date NULL,
   `job_id` varchar(50) NOT NULL,
   `department_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `job_history` VALUES (100,'2001-01-13','2006-07-24','SA REP',60);
 INSERT INTO `job_history` VALUES (100,'1997-09-21','2001-10-27','AC ACCOUNT',110);
 INSERT INTO `job_history` VALUES (101,'2001-10-28','2005-03-15','AC MGR',110);
@@ -114,7 +114,7 @@ CREATE TABLE `departments` (
   `manager_id` int(11) DEFAULT NULL,
   `location_id` int(11) NOT NULL,
   PRIMARY KEY (`department_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `departments` VALUES (10,'Administration',100,1700);
 INSERT INTO `departments` VALUES (20,'Marketing',101,1200);
 INSERT INTO `departments` VALUES (30,'Purchasing',102,1400);
@@ -147,7 +147,7 @@ CREATE TABLE `employees` (
   KEY `fk_employees_employees_idx` (`manager_id`),
   CONSTRAINT `fk_employees_managers` FOREIGN KEY (`manager_id`) REFERENCES `employees` (`employee_id`),
   CONSTRAINT `fk_employees_departments` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `employees` VALUES (100,'Yovonnda','Magrannell','Executive Secretary',63996,'2003-03-17','AD PRES',24000,null,null,90);
 INSERT INTO `employees` VALUES (101,'D''arcy','Nortunen','Account Executive',62871,'2005-09-21','AD VP',17000,null,100,90);
 INSERT INTO `employees` VALUES (102,'Sayer','Matterson','Statistician III',98926,'2001-01-13','AD VP',17000,null,100,90);
